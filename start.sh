@@ -30,6 +30,8 @@ fi
 
 # Railway expects an HTTP server for healthchecks.
 # Run the gateway in foreground mode with the API server on PORT (default 8080).
+# Bind to 0.0.0.0 so Railway can reach the /health endpoint.
 export API_SERVER_PORT="${PORT:-8080}"
+export API_SERVER_HOST="${API_SERVER_HOST:-0.0.0.0}"
 
 exec hermes gateway run "$@"
