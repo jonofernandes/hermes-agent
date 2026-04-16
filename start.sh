@@ -28,4 +28,8 @@ if [ -d "$INSTALL_DIR/skills" ]; then
     python3 "$INSTALL_DIR/tools/skills_sync.py"
 fi
 
-exec hermes "$@"
+# Railway expects an HTTP server for healthchecks.
+# Run the gateway in foreground mode with the API server on PORT (default 8080).
+export API_SERVER_PORT="${PORT:-8080}"
+
+exec hermes gateway run "$@"
