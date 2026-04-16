@@ -4,7 +4,10 @@ set -e
 INSTALL_DIR="/opt/hermes"
 HERMES_HOME="${HERMES_HOME:-/opt/data}"
 
-source "${INSTALL_DIR}/.venv/bin/activate"
+# Activate venv by setting PATH/VIRTUAL_ENV directly to avoid
+# "Input is not a terminal" warnings in non-interactive containers.
+export VIRTUAL_ENV="${INSTALL_DIR}/.venv"
+export PATH="${VIRTUAL_ENV}/bin:${PATH}"
 
 mkdir -p "$HERMES_HOME"/{cron,sessions,logs,hooks,memories,skills,skins,plans,workspace,home}
 
