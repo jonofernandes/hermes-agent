@@ -45,4 +45,8 @@ RUN chmod +x /opt/hermes/docker/entrypoint.sh && \
     chmod +x /app/start.sh /opt/hermes/start.sh
 
 ENV HERMES_HOME=/opt/data
-ENTRYPOINT [ "/opt/hermes/docker/entrypoint.sh" ]
+
+# Use start.sh directly — works for both Docker and Railway.
+# docker/entrypoint.sh is still available for Docker Compose setups
+# that need gosu-based privilege dropping.
+ENTRYPOINT [ "/app/start.sh" ]
